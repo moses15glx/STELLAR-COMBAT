@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stellar-Combat</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" href="img/icone.png">
+</head>
+<body>
+
+<!-- Hero Section -->
+<section class="hero">
+    <canvas id="stars"></canvas>
+    <img src="img/nave-player.png" alt="Nave Espacial" class="spaceship-fly">
+
+    <div class="hero-content">
+        <h1 class="hero-title">
+            Stellar <span class="gradient-text">Combat</span>
+        </h1>
+        <p class="hero-description">
+            Conquiste a galáxia em uma aventura épica pelo espaço sideral
+        </p>
+        <button class="btn-download">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Fazer Download
+        </button>
+    </div>
+</section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Ação Intensa</h3>
+                    <p class="feature-description">Combates espaciais emocionantes com controles precisos e jogabilidade fluida.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polygon points="10 8 16 12 10 16 10 8"></polygon>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Gráficos Nostálgicos</h3>
+                    <p class="feature-description">Visuais inspirados em jogos Space Shooter Clássicos!.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                            <path d="M2 17l10 5 10-5"></path>
+                            <path d="M2 12l10 5 10-5"></path>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Inimigos Desafiadores</h3>
+                    <p class="feature-description">Múltiplos inimigos com dificuldade progressiva e chefe épico para derrotar.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-text">© 2025 Stellar-Combat. Todos os direitos reservados (moisa.tech).</p>
+        </div>
+    </footer>
+
+    <script>
+const canvas = document.getElementById("stars");
+const ctx = canvas.getContext("2d");
+
+let stars = [];
+let asteroids = [];
+
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener("resize", resize);
+
+// Cria estrelas
+for (let i = 0; i < 150; i++) {
+  stars.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    size: Math.random() * 2,
+    speed: 0.2 + Math.random() * 0.3,
+    alpha: 0.3 + Math.random() * 0.7,
+  });
+}
+
+// Cria asteroides (partículas maiores passando)
+for (let i = 0; i < 5; i++) {
+  asteroids.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    size: 10 + Math.random() * 20,
+    speed: 0.5 + Math.random() * 1,
+    angle: Math.random() * 2 * Math.PI,
+  });
+}
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Desenha estrelas
+  for (let s of stars) {
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255,255,255,${s.alpha})`;
+    ctx.fill();
+
+    s.y += s.speed;
+    if (s.y > canvas.height) {
+      s.y = 0;
+      s.x = Math.random() * canvas.width;
+    }
+  }
+
+  // Desenha asteroides
+  for (let a of asteroids) {
+    ctx.save();
+    ctx.translate(a.x, a.y);
+    ctx.rotate(a.angle);
+    const grad = ctx.createRadialGradient(0, 0, 0, 0, 0, a.size);
+    grad.addColorStop(0, "rgba(255,255,255,0.8)");
+    grad.addColorStop(1, "rgba(0,0,0,0)");
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.ellipse(0, 0, a.size * 1.5, a.size, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+
+    a.x -= a.speed * 2;
+    a.y += a.speed;
+    if (a.x < -50 || a.y > canvas.height + 50) {
+      a.x = canvas.width + 50;
+      a.y = Math.random() * canvas.height * 0.5;
+      a.angle = Math.random() * 2 * Math.PI;
+    }
+  }
+
+  requestAnimationFrame(animate);
+}
+
+animate();
+</script>
+</body>
+</html>
