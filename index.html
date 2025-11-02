@@ -21,7 +21,7 @@
         <p class="hero-description">
             Conquiste a galáxia em uma aventura épica pelo espaço sideral
         </p>
-        <button class="btn-download">
+        <button class="btn-download" id="downloadBtn">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                 <polyline points="7 10 12 15 17 10"></polyline>
@@ -32,53 +32,182 @@
     </div>
 </section>
 
-    <!-- Features Section -->
-    <section class="features">
-        <div class="container">
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-                        </svg>
-                    </div>
-                    <h3 class="feature-title">Ação Intensa</h3>
-                    <p class="feature-description">Combates espaciais emocionantes com controles precisos e jogabilidade fluida.</p>
+<!-- Features Section -->
+<section class="features">
+    <div class="container">
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                    </svg>
                 </div>
+                <h3 class="feature-title">Ação Intensa</h3>
+                <p class="feature-description">Combates espaciais emocionantes com controles precisos e jogabilidade fluida.</p>
+            </div>
 
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <polygon points="10 8 16 12 10 16 10 8"></polygon>
-                        </svg>
-                    </div>
-                    <h3 class="feature-title">Gráficos Nostálgicos</h3>
-                    <p class="feature-description">Visuais inspirados em jogos Space Shooter Clássicos!.</p>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polygon points="10 8 16 12 10 16 10 8"></polygon>
+                    </svg>
                 </div>
+                <h3 class="feature-title">Gráficos Nostálgicos</h3>
+                <p class="feature-description">Visuais inspirados em jogos Space Shooter Clássicos!.</p>
+            </div>
 
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-                            <path d="M2 17l10 5 10-5"></path>
-                            <path d="M2 12l10 5 10-5"></path>
-                        </svg>
-                    </div>
-                    <h3 class="feature-title">Inimigos Desafiadores</h3>
-                    <p class="feature-description">Múltiplos inimigos com dificuldade progressiva e chefe épico para derrotar.</p>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                        <path d="M2 17l10 5 10-5"></path>
+                        <path d="M2 12l10 5 10-5"></path>
+                    </svg>
                 </div>
+                <h3 class="feature-title">Inimigos Desafiadores</h3>
+                <p class="feature-description">Múltiplos inimigos com dificuldade progressiva e chefe épico para derrotar.</p>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <footer class="footer">
-        <div class="container">
-            <p class="footer-text">© 2025 Stellar-Combat. Todos os direitos reservados (moisa.tech).</p>
+<footer class="footer">
+    <div class="container">
+        <p class="footer-text">© 2025 Stellar-Combat. Todos os direitos reservados (moisa.tech).</p>
+    </div>
+</footer>
+
+<!-- Player de música -->
+<div id="musicPlayer">
+    <div class="player-content">
+        <button id="playPauseBtn">▶️</button>
+        <div id="progressContainer">
+            <div id="progressBar"></div>
         </div>
-    </footer>
+        <span id="timeDisplay">0:00 / 0:00</span>
+    </div>
+</div>
 
-    <script>
+<style>
+/* Player base */
+#musicPlayer {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    background: #1a1a1a;
+    color: white;
+    border-radius: 10px;
+    padding: 10px 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    font-family: sans-serif;
+    z-index: 1000;
+}
+
+#musicPlayer .player-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#playPauseBtn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+#progressContainer {
+    flex: 1;
+    margin: 0 10px;
+    width: 100%;
+    height: 5px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+}
+
+#progressBar {
+    width: 0%;
+    height: 100%;
+    background: #00ffea;
+    border-radius: 5px;
+}
+
+/* Tempo */
+#timeDisplay {
+    font-size: 12px;
+}
+
+/* Responsivo: telas menores */
+@media (max-width: 500px) {
+    #musicPlayer {
+        width: 200px;
+        padding: 8px 10px;
+        bottom: 10px;
+        right: 10px;
+    }
+    #playPauseBtn {
+        font-size: 18px;
+    }
+    #progressContainer {
+        height: 4px;
+    }
+    #timeDisplay {
+        font-size: 10px;
+    }
+}
+</style>
+
+<script>
+const music = new Audio('musica/musica-game.mp3');
+const playPauseBtn = document.getElementById('playPauseBtn');
+const progressBar = document.getElementById('progressBar');
+const progressContainer = document.getElementById('progressContainer');
+const timeDisplay = document.getElementById('timeDisplay');
+let isPlaying = false;
+
+function formatTime(seconds) {
+    const m = Math.floor(seconds / 60);
+    const s = Math.floor(seconds % 60).toString().padStart(2,'0');
+    return `${m}:${s}`;
+}
+
+music.addEventListener('timeupdate', () => {
+    const percent = (music.currentTime / music.duration) * 100;
+    progressBar.style.width = percent + '%';
+    timeDisplay.textContent = `${formatTime(music.currentTime)} / ${formatTime(music.duration)}`;
+});
+
+playPauseBtn.addEventListener('click', () => {
+    if (!isPlaying) {
+        music.play();
+        playPauseBtn.textContent = "⏸";
+    } else {
+        music.pause();
+        playPauseBtn.textContent = "▶️";
+    }
+    isPlaying = !isPlaying;
+});
+
+progressContainer.addEventListener('click', (e) => {
+    const rect = progressContainer.getBoundingClientRect();
+    const percent = (e.clientX - rect.left) / rect.width;
+    music.currentTime = percent * music.duration;
+});
+
+music.addEventListener('loadedmetadata', () => {
+    timeDisplay.textContent = `0:00 / ${formatTime(music.duration)}`;
+});
+
+music.loop = true;
+</script>
+
+<script>
+// Animação do fundo estrelado
 const canvas = document.getElementById("stars");
 const ctx = canvas.getContext("2d");
 
@@ -158,6 +287,17 @@ function animate() {
 }
 
 animate();
+
+// Função de download do APK
+document.getElementById("downloadBtn").addEventListener("click", function() {
+    const fileUrl = "apk/Space-Shooter1.0.apk"; // apk
+    const link = document.createElement("a");
+    link.href = fileUrl;
+    link.download = "Space-Shooter1.0.apk";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+});
 </script>
 </body>
 </html>
