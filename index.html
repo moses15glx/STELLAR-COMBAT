@@ -72,139 +72,35 @@
     </div>
 </section>
 
+<!-- Video Trailer Section -->
+<section class="trailer-section" style="padding: 2rem 0; text-align: center;">
+    <h2 style="font-size: 1.6rem; font-weight: 900; margin-bottom: 1rem;">Trailer</h2>
+
+    <div style="
+        width: 220px;
+        margin: 0 auto;
+        background: rgba(255, 255, 255, 0.05);
+        padding: 0.7rem;
+        border-radius: 15px;
+        border: 1px solid rgba(255,255,255,0.1);
+        box-shadow: 0 0 12px rgba(0, 217, 255, 0.18);
+    ">
+        <video 
+            src="video/trailer.mp4" 
+            controls 
+            style="
+                width: 100%;
+                border-radius: 10px;
+            ">
+        </video>
+    </div>
+</section>
+
 <footer class="footer">
     <div class="container">
         <p class="footer-text">© 2025 Stellar-Combat. Todos os direitos reservados (moisa.tech).</p>
     </div>
 </footer>
-
-<!-- Player de música -->
-<div id="musicPlayer">
-    <div class="player-content">
-        <button id="playPauseBtn">▶️</button>
-        <div id="progressContainer">
-            <div id="progressBar"></div>
-        </div>
-        <span id="timeDisplay">0:00 / 0:00</span>
-    </div>
-</div>
-
-<style>
-/* Player base */
-#musicPlayer {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 300px;
-    background: #1a1a1a;
-    color: white;
-    border-radius: 10px;
-    padding: 10px 15px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    font-family: sans-serif;
-    z-index: 1000;
-}
-
-#musicPlayer .player-content {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-#playPauseBtn {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 24px;
-    cursor: pointer;
-}
-
-#progressContainer {
-    flex: 1;
-    margin: 0 10px;
-    width: 100%;
-    height: 5px;
-    background: rgba(255,255,255,0.2);
-    border-radius: 5px;
-    cursor: pointer;
-    position: relative;
-}
-
-#progressBar {
-    width: 0%;
-    height: 100%;
-    background: #00ffea;
-    border-radius: 5px;
-}
-
-/* Tempo */
-#timeDisplay {
-    font-size: 12px;
-}
-
-/* Responsivo: telas menores */
-@media (max-width: 500px) {
-    #musicPlayer {
-        width: 200px;
-        padding: 8px 10px;
-        bottom: 10px;
-        right: 10px;
-    }
-    #playPauseBtn {
-        font-size: 18px;
-    }
-    #progressContainer {
-        height: 4px;
-    }
-    #timeDisplay {
-        font-size: 10px;
-    }
-}
-</style>
-
-<script>
-const music = new Audio('musica/musica-game.mp3');
-const playPauseBtn = document.getElementById('playPauseBtn');
-const progressBar = document.getElementById('progressBar');
-const progressContainer = document.getElementById('progressContainer');
-const timeDisplay = document.getElementById('timeDisplay');
-let isPlaying = false;
-
-function formatTime(seconds) {
-    const m = Math.floor(seconds / 60);
-    const s = Math.floor(seconds % 60).toString().padStart(2,'0');
-    return `${m}:${s}`;
-}
-
-music.addEventListener('timeupdate', () => {
-    const percent = (music.currentTime / music.duration) * 100;
-    progressBar.style.width = percent + '%';
-    timeDisplay.textContent = `${formatTime(music.currentTime)} / ${formatTime(music.duration)}`;
-});
-
-playPauseBtn.addEventListener('click', () => {
-    if (!isPlaying) {
-        music.play();
-        playPauseBtn.textContent = "⏸";
-    } else {
-        music.pause();
-        playPauseBtn.textContent = "▶️";
-    }
-    isPlaying = !isPlaying;
-});
-
-progressContainer.addEventListener('click', (e) => {
-    const rect = progressContainer.getBoundingClientRect();
-    const percent = (e.clientX - rect.left) / rect.width;
-    music.currentTime = percent * music.duration;
-});
-
-music.addEventListener('loadedmetadata', () => {
-    timeDisplay.textContent = `0:00 / ${formatTime(music.duration)}`;
-});
-
-music.loop = true;
-</script>
 
 <script>
 // Animação do fundo estrelado
